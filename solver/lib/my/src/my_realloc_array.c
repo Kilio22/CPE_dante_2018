@@ -17,5 +17,6 @@ char **my_realloc_array(char **array)
         new_array[i] = array[i];
     new_array[len] = (void *) 1;
     new_array[len + 1] = NULL;
+    free(array);
     return (new_array);
 }
