@@ -17,13 +17,13 @@
 int choose_bool(int i)
 {
     if (i == 0)
-        return (1);
-    if (i == 1)
-        return (0);
-    if (i == 2)
         return (3);
-    if (i == 3)
+    if (i == 1)
         return (2);
+    if (i == 2)
+        return (1);
+    if (i == 3)
+        return (0);
     return (0);
 }
 
@@ -32,11 +32,11 @@ void choose_pos(int i, int *pos, char **map, bool *bools)
     if (bools[i] == true)
         pos[0] = -1;
     if (i == 0)
-        pos[0] += 1;
-    if (i == 1)
-        pos[0] -= 1;
-    if (i == 2)
         pos[1] += 1;
+    if (i == 1)
+        pos[0] += 1;
+    if (i == 2)
+        pos[0] -= 1;
     if (i == 3)
         pos[1] -= 1;
     if (pos[1] < 0 || pos[0] < 0 || pos[1] >= (int)my_strlen(map[0]) ||

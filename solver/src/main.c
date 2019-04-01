@@ -16,7 +16,7 @@
 int call_algo(char **map)
 {
     int *pos = malloc(sizeof(int) * 2);
-    int come_from = 1;
+    int come_from = 2;
     int ret_val = 0;
 
     pos[0] = 0;
