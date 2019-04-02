@@ -20,5 +20,7 @@ char **my_remove_ptr_fromarray(char **array, char *ptr)
         new_array[j++] = array[i];
     }
     new_array[len - 1] = NULL;
+    free(ptr);
+    free(array);
     return (new_array);
 }

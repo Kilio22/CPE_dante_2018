@@ -10,12 +10,12 @@
 
 void *free_em(size_t n, ...)
 {
-    char *s;
+    void *s;
     va_list list;
 
     va_start(list, n);
     while (n--) {
-        s = va_arg(list, char *);
+        s = va_arg(list, void *);
         if (!s)
             continue;
         free(s);

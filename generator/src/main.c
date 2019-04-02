@@ -1,32 +1,43 @@
 /*
-** EPITECH PROJECT, 2018
-** main.c
+** EPITECH PROJECT, 2019
+** generator
 ** File description:
-** Main function
+** main
 */
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+#include <stdbool.h>
 #include "my.h"
-#include "my_stdio.h"
+#include "generator.h"
 
 int main(int argc, char *argv[])
 {
-    int x;
-    int y;
+	size_t width;
+	size_t n_width;
+	size_t height;
+	size_t n_height;
+	struct node_s *nodes;
 
-    if (argc < 3)
-        return (84);
-    if (!my_str_isnum(argv[1], 0) || !my_str_isnum(argv[2], 0))
-        return (84);
-    x = atoi(argv[1]);
-    y = atoi(argv[2]);
-    if (!x || !y)
-        return (84);
-    for (int i = 0; i < x; i++) {
-        for (int j = 0; j < y; j++)
-            my_putchar('*');
-        my_putchar('\n');
-    }
-    return (0);
+	if (argc < 3)
+		return 84;
+	if (sscanf(argv[1], "%lu", &width) + sscanf(argv[2], "%lu", &height) < 2) {
+		fprintf(stderr, "%s: invalid maze size values!\n", argv[0]);
+		return 84;
+	}
+	if (width <= 0 || height <= 0) {
+		fprintf(stderr, "%s: dimensions must be greater than 0!\n", argv[0]);
+		return 84;
+	}
+	srand(time(NULL));
+	n_height = height % 2 ? height : height + 1;
+	n_width = width % 2 ? width : width + 1;
+	nodes = create_map(n_height, n_width);
+	if (nodes == NULL)
+		return 84;
+	draw_map(nodes, height, width);
+	free(nodes);
+	return EXIT_SUCCESS;
 }
