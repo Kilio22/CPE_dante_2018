@@ -31,11 +31,11 @@ int choose_pos(int i, size_t *pos, char **map, bool *bools)
 {
     if (bools[i] == true)
         return (-1);
-    if (i == 0 && pos[1] < my_strlen(map[0])) {
+    if (i == 0 && pos[1] + 1 < my_strlen(map[0])) {
         pos[1] += 1;
         return (0);
     }
-    if (i == 1 && pos[0] < my_strarraylen(map)) {
+    if (i == 1 && pos[0] + 1 < my_strarraylen(map)) {
         pos[0] += 1;
         return (0);
     }
