@@ -34,6 +34,5 @@ char **error_handling(char **map)
         puts("no solution found");
         return (NULL);
     }
-    map[arr_len - 1][len - 1] = 'G';
     return (map);
 }
