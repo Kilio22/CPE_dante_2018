@@ -18,6 +18,7 @@ void draw_map(struct node_s *nodes, size_t height, size_t width)
             ptr = GET_NODE(nodes, i, j, n_width);
             putchar((i == height - 1 && j == width - 1) ? '*' : ptr->c);
         }
-        putchar('\n');
+        if (i != height - 1)
+            putchar('\n');
     }
 }
