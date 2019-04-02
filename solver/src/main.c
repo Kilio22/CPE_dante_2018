@@ -19,6 +19,8 @@ int call_algo(char **map)
     int come_from = 2;
     int ret_val = 0;
 
+    if (pos == NULL)
+        exit(84);
     pos[0] = 0;
     pos[1] = 0;
     ret_val = algo(map, pos, come_from);

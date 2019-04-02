@@ -44,6 +44,8 @@ char **get_map_on_input(void)
     char *line = get_next_line(0);
     int i = 0;
 
+    if (new == NULL)
+        exit (84);
     new[0] = NULL;
     while (line) {
         new = my_realloc_array(new);

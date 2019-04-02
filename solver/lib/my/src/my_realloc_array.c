@@ -13,6 +13,8 @@ char **my_realloc_array(char **array)
     size_t len = my_strarraylen(array);
     char **new_array = malloc(sizeof(char *) * (len + 2));
 
+    if (new_array == NULL)
+        exit (84);
     for (size_t i = 0; i < len; i++)
         new_array[i] = array[i];
     new_array[len] = (void *) 1;
