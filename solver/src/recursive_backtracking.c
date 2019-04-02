@@ -27,15 +27,15 @@ int choose_bool(int i)
     return (0);
 }
 
-int choose_pos(int i, size_t *pos, char **map, bool *bools)
+int choose_pos(int i, size_t *pos, bool *bools, size_t *size)
 {
     if (bools[i] == true)
         return (-1);
-    if (i == 0 && pos[1] + 1 < my_strlen(map[0])) {
+    if (i == 0 && pos[1] + 1 < size[0]) {
         pos[1] += 1;
         return (0);
     }
-    if (i == 1 && pos[0] + 1 < my_strarraylen(map)) {
+    if (i == 1 && pos[0] + 1 < size[1]) {
         pos[0] += 1;
         return (0);
     }
@@ -50,7 +50,7 @@ int choose_pos(int i, size_t *pos, char **map, bool *bools)
     return (-1);
 }
 
-int algo(char **map, size_t pos[2], int prev)
+int algo(char **map, size_t pos[2], int prev, size_t *size)
 {
     bool bools[4] = {false, false, false, false};
     size_t new_pos[2];
@@ -58,15 +58,15 @@ int algo(char **map, size_t pos[2], int prev)
     bools[prev] = true;
     if (map[pos[0]][pos[1]] == 'X' || map[pos[0]][pos[1]] == 'o')
         return (-1);
-    if (pos[0] == my_strarraylen(map) - 1 && pos[1] == strlen(map[0]) - 1)
+    if (pos[0] == size[1] - 1 && pos[1] == size[0] - 1)
         return (0);
     map[pos[0]][pos[1]] = 'o';
     for (int i = 0; i < 4; i++) {
         new_pos[0] = pos[0];
         new_pos[1] = pos[1];
-        if (choose_pos(i, new_pos, map, bools) == -1)
+        if (choose_pos(i, new_pos, bools, size) == -1)
             continue;
-        if (algo(map, new_pos, choose_bool(i)) == 0)
+        if (algo(map, new_pos, choose_bool(i), size) == 0)
             return (0);
     }
     map[pos[0]][pos[1]] = '*';
