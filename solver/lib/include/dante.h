@@ -5,6 +5,8 @@
 ** dante
 */
 
+#pragma once
+
 char **get_map_in_file(char **av);
 char **get_map_on_input(void);
 char **error_handling(char **map);

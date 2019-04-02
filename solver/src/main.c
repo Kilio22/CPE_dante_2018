@@ -28,8 +28,12 @@ int call_algo(char **map)
         map[my_strarraylen(map) - 1][strlen(map[0]) - 1] = '*';
     else
         map[my_strarraylen(map) - 1][strlen(map[0]) - 1] = 'o';
-    for (int i = 0; map[i] != NULL; i++)
-        printf("%s\n", map[i]);
+    for (int i = 0; map[i] != NULL; i++) {
+        if (map[i + 1] == NULL)
+            printf("%s", map[i]);
+        if (map[i + 1] != NULL)
+            printf("%s\n", map[i]);
+    }
     return (ret_val);
 }
 
