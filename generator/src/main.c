@@ -11,15 +11,13 @@
 #include <string.h>
 #include <stdbool.h>
 #include "my.h"
+#include "my_string.h"
 #include "generator.h"
 
 int main(int argc, char *argv[])
 {
 	size_t width;
-	size_t n_width;
 	size_t height;
-	size_t n_height;
-	struct node_s *nodes;
 
 	if (argc < 3)
 		return 84;
@@ -32,12 +30,10 @@ int main(int argc, char *argv[])
 		return 84;
 	}
 	srand(time(NULL));
-	n_height = height % 2 ? height : height + 1;
-	n_width = width % 2 ? width : width + 1;
-	nodes = create_map(n_height, n_width);
-	if (nodes == NULL)
-		return 84;
-	draw_map(nodes, height, width);
-	free(nodes);
+	perfect_generation(height, width);
+	// if (STR_EQ(argv[4], "parfait"))
+	// ;
+	// else
+	// ;
 	return EXIT_SUCCESS;
 }
