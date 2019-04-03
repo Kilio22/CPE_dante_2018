@@ -45,7 +45,7 @@ static char *init_map(size_t height, size_t width)
 
     if (!map)
         return NULL;
-    memset(map, '#', height * width + height - 1);
+    memset(map, 'X', height * width + height - 1);
     for (size_t i = 0; i < height - 1; i++)
         map[i + i * width + width] = '\n';
     for (size_t i = 0; i < height; i += 2) {
