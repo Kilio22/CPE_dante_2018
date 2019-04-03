@@ -19,4 +19,4 @@ typedef struct solver_s
 char **get_map_in_file(char **av);
 char **get_map_on_input(void);
 char **error_handling(char **map);
-int algo(char **map, size_t pos[2], int prev, solver_t **solver);
+int algo(char **map, size_t pos[2], solver_t **solver);

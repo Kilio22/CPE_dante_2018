@@ -69,7 +69,7 @@ int call_algo(char **map)
         exit(84);
     pos[0] = 0;
     pos[1] = 0;
-    if (algo(map, pos, 2, solver) == -1) {
+    if (algo(map, pos, solver) == -1) {
         map[size[1] - 1][size[0] - 1] = '*';
         return (-1);
     }
