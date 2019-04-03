@@ -31,7 +31,7 @@ char **error_handling(char **map)
     if (oui == 1)
         return (NULL);
     if (map[0][0] != '*' || map[arr_len - 1][len - 1] != '*') {
-        puts("no solution found");
+        printf("no solution found");
         return (NULL);
     }
     return (map);

@@ -40,12 +40,28 @@ int print_map(char **map, size_t *size)
     return (0);
 }
 
+solver_t **init_solver(char **map)
+{
+    solver_t **solver = malloc(sizeof(solver_t *) * my_strarraylen(map));
+    size_t arr_len = my_strarraylen(map);
+    size_t len = strlen(map[0]);
+
+    for (size_t i = 0; i < arr_len; i++) {
+        solver[i] = malloc(sizeof(solver_t) * len);
+        for (size_t j = 0; j < len; j++) {
+            solver[i][j].size[0] = len;
+            solver[i][j].size[1] = arr_len;
+            solver[i][j].crossed = 0;
+        }
+    }
+    return (solver);
+}
+
 int call_algo(char **map)
 {
     size_t *pos = malloc(sizeof(size_t) * 2);
+    solver_t **solver = init_solver(map);
     size_t *size = malloc(sizeof(size_t) * 2);
-    int come_from = 2;
-    int ret_val = 0;
 
     size[0] = strlen(map[0]);
     size[1] = my_strarraylen(map);
@@ -53,16 +69,18 @@ int call_algo(char **map)
         exit(84);
     pos[0] = 0;
     pos[1] = 0;
-    ret_val = algo(map, pos, come_from, size);
-    if (ret_val == -1) {
+    if (algo(map, pos, 2, solver) == -1) {
         map[size[1] - 1][size[0] - 1] = '*';
-        return (ret_val);
+        return (-1);
     }
     else {
         map[size[1] - 1][size[0] - 1] = 'o';
         return (print_map(map, size));
     }
-    return (ret_val);
+    for (size_t i = 0; i < pos[1]; i++)
+        free(solver[i]);
+    free(solver);
+    return (0);
 }
 
 void init(void)
@@ -93,7 +111,7 @@ int main(int ac, char **av)
         return (84);
     ret_val = call_algo(map);
     if (ret_val == -1) {
-        puts("no solution found");
+        printf("no solution found");
         return (84);
     }
     return (0);
