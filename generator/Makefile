@@ -42,8 +42,7 @@ SRC_PATH	=	$(ROOT_PATH)$(SRC_NAME)
 INCL_PATH	=	$(ROOT_PATH)$(INCL_NAME)
 TESTS_PATH	=	$(ROOT_PATH)$(TESTS_NAME)
 
-SRC	=	create_map.c \
-		perfect_generation.c		
+SRC	=	perfect_generation.c
 
 SRC_LIB	=	stdio my string
 
