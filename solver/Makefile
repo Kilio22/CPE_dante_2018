@@ -43,8 +43,9 @@ INCL_PATH	=	$(ROOT_PATH)$(INCL_NAME)
 TESTS_PATH	=	$(ROOT_PATH)$(TESTS_NAME)
 
 SRC	=		get_map.c	\
-			recursive_backtracking.c		\
-			error_handling.c
+			error_handling.c	\
+			chained_lists.c	\
+			new_algo.c
 
 SRC_LIB	=	stdio my string
 
