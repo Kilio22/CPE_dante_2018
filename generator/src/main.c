@@ -30,16 +30,6 @@ static void randomize_map_fuckup(char *map, size_t height, size_t width)
     }
 }
 
-static int display_map(char *map, size_t height, size_t width)
-{
-    if (!map)
-        return 84;
-    if (write(1, map, height * width + height - 1) == -1)
-        return 84;
-    free(map);
-    return EXIT_SUCCESS;
-}
-
 int main(int argc, char *argv[])
 {
     char *map;
@@ -60,5 +50,5 @@ int main(int argc, char *argv[])
     map = perfect_generation(height, width);
     if (!(argc > 3 && STR_EQ(argv[3], "perfect")))
         randomize_map_fuckup(map, height, width);
-    return display_map(map, height, width);
+    return 0;
 }

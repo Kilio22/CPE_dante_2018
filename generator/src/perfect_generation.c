@@ -39,38 +39,59 @@ int dig_walls(char *map, size_t i, size_t width)
     return 0;
 }
 
-static char *init_map(size_t height, size_t width)
+static char *create_blank_maze(size_t height, size_t width)
 {
-    char *map = malloc(height * width + height - 1);
+    char *maze = malloc(MAP_SIZE(height, width));
 
-    if (!map)
+    if (!maze)
         return NULL;
-    memset(map, 'X', height * width + height - 1);
+    memset(maze, 'X', MAP_SIZE(height, width));
     for (size_t i = 0; i < height - 1; i++)
-        map[i + i * width + width] = '\n';
+        maze[i + i * width + width] = '\n';
     for (size_t i = 0; i < height; i += 2) {
         for (size_t j = 0; j < width; j += 2)
-            map[i + i * width + j] = '*';
+            maze[i + i * width + j] = '*';
     }
+    return maze;
+}
+
+static struct map_s init_map(size_t height, size_t width)
+{
+    struct map_s map;
+    char *maze = create_blank_maze(height, width);
+
+    map.height = height;
+    map.width = width;
+    map.maze = maze;
+    memset(map.nodes, 0, sizeof(struct node_s *) * MAX_CHILDS);
     return map;
+}
+
+static struct node_s *create_map_nodes(size_t h, size_t w)
+{
+    struct node_s *nodes = malloc(sizeof(struct node_s) * MAP_SIZE(h, w));
+
+    if (!nodes)
+        return NULL;
+    for (size_t i = 0; i < h; i += 2) {
+        for (size_t j = 0; j < w; j += 2) {
+            nodes[i + i * w + j].x = i;
+            nodes[i + i * w + j].y = j;
+            nodes[i + i * w + j].dir = 0b1111;
+            nodes[i + i * w + j].prev = NULL;
+        }
+    }
+    return nodes;
 }
 
 char *perfect_generation(size_t height, size_t width)
 {
-    char *map = init_map(height, width);
+    struct map_s map = init_map(height, width);
+    struct node_s *nodes = create_map_nodes(height, width);
 
-    if (!map)
+    if (!map.maze || !nodes)
         return NULL;
-    for (size_t i = height - ((height % 2) ? 1 : 2); i < height; i -= 2) {
-        if (dig_walls(map, i, width) == -1)
-            return NULL;
-    }
-    map[height * width + height - 2] = '*';
-    if (!(height % 2 || width % 2)) {
-        if (get_dig_direction(1, 1))
-            map[height * width + height - 3] = '*';
-        else
-            map[height * width + height - 3 - width] = '*';
-    }
-    return map;
+    free(map.maze);
+    free(nodes);
+    return NULL;
 }
