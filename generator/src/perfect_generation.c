@@ -63,35 +63,64 @@ static struct map_s init_map(size_t height, size_t width)
     map.height = height;
     map.width = width;
     map.maze = maze;
-    memset(map.nodes, 0, sizeof(struct node_s *) * MAX_CHILDS);
+    for (size_t i = 0; i < MAX_CHILDS; i++)
+        map.nodes[i] = NULL;
     return map;
 }
 
-static struct node_s *create_map_nodes(size_t h, size_t w)
+static struct node_s *create_node_map(size_t h, size_t w)
 {
-    struct node_s *nodes = malloc(sizeof(struct node_s) * MAP_SIZE(h, w));
+    struct node_s *node_map = malloc(sizeof(struct node_s) * MAP_SIZE(h, w));
 
-    if (!nodes)
+    if (!node_map)
         return NULL;
     for (size_t i = 0; i < h; i += 2) {
         for (size_t j = 0; j < w; j += 2) {
-            nodes[i + i * w + j].x = i;
-            nodes[i + i * w + j].y = j;
-            nodes[i + i * w + j].dir = 0b1111;
-            nodes[i + i * w + j].prev = NULL;
+            node_map[i + i * w + j].x = i;
+            node_map[i + i * w + j].y = j;
+            node_map[i + i * w + j].dir = 0b1111;
+            node_map[i + i * w + j].prev = NULL;
         }
     }
-    return nodes;
+    return node_map;
+}
+
+struct node_s *link_node(struct node_s *node)
+{
+    return node->prev;
+}
+
+void remove_child(struct node_s **nodes, size_t index, size_t child_nb)
+{
+    for (size_t i = index; i < child_nb - 1; i++)
+        nodes[i] = nodes[i + 1];
+}
+
+size_t build_maze(struct map_s *map, struct node_s *start, size_t child_nb)
+{
+    for (size_t i = 0; i < child_nb; i++) {
+        if (map->nodes[i] == start) {
+            remove_child(map->nodes, i--, child_nb--);
+            continue;
+        }
+        map->nodes[i] = link_node(map->nodes[i]);
+    }
+    return child_nb;
 }
 
 char *perfect_generation(size_t height, size_t width)
 {
     struct map_s map = init_map(height, width);
-    struct node_s *nodes = create_map_nodes(height, width);
+    struct node_s *node_map = create_node_map(height, width);
+    struct node_s *start = node_map;
+    size_t child_nb = 1;
 
-    if (!map.maze || !nodes)
+    if (!map.maze || !node_map)
         return NULL;
-    free(map.maze);
-    free(nodes);
-    return NULL;
+    start->prev = start;
+    map.nodes[0] = link_node(start);
+    while (child_nb)
+        child_nb = build_maze(&map, start, child_nb);
+    free(node_map);
+    return map.maze;
 }
