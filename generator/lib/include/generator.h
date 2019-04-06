@@ -31,11 +31,14 @@ struct map_s {
 	size_t height;
 	size_t width;
 	char *maze;
+	struct node_s *node_map;
 	struct node_s *nodes[MAX_CHILDS];
 };
 
 #define STR_EQ(s1, s2) !strcmp(s1, s2)
 
 char *perfect_generation(size_t height, size_t width);
+struct node_s *link_node(struct map_s *map, struct node_s *current);
+size_t build_maze(struct map_s *map, struct node_s *start, size_t child_nb);
 
 #endif /* !GENERATOR_H_ */

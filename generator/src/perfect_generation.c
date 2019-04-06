@@ -71,41 +71,20 @@ static struct map_s init_map(size_t height, size_t width)
 static struct node_s *create_node_map(size_t h, size_t w)
 {
     struct node_s *node_map = malloc(sizeof(struct node_s) * MAP_SIZE(h, w));
+    size_t index;
 
     if (!node_map)
         return NULL;
     for (size_t i = 0; i < h; i += 2) {
         for (size_t j = 0; j < w; j += 2) {
-            node_map[i + i * w + j].x = i;
-            node_map[i + i * w + j].y = j;
-            node_map[i + i * w + j].dir = 0b1111;
-            node_map[i + i * w + j].prev = NULL;
+            index = i + i * w + j;
+            node_map[index].x = i;
+            node_map[index].y = j;
+            node_map[index].dir = 0b1111;
+            node_map[index].prev = NULL;
         }
     }
     return node_map;
-}
-
-struct node_s *link_node(struct node_s *node)
-{
-    return node->prev;
-}
-
-void remove_child(struct node_s **nodes, size_t index, size_t child_nb)
-{
-    for (size_t i = index; i < child_nb - 1; i++)
-        nodes[i] = nodes[i + 1];
-}
-
-size_t build_maze(struct map_s *map, struct node_s *start, size_t child_nb)
-{
-    for (size_t i = 0; i < child_nb; i++) {
-        if (map->nodes[i] == start) {
-            remove_child(map->nodes, i--, child_nb--);
-            continue;
-        }
-        map->nodes[i] = link_node(map->nodes[i]);
-    }
-    return child_nb;
 }
 
 char *perfect_generation(size_t height, size_t width)
@@ -117,8 +96,9 @@ char *perfect_generation(size_t height, size_t width)
 
     if (!map.maze || !node_map)
         return NULL;
+    map.node_map = node_map;
     start->prev = start;
-    map.nodes[0] = link_node(start);
+    map.nodes[0] = link_node(&map, start);
     while (child_nb)
         child_nb = build_maze(&map, start, child_nb);
     free(node_map);
