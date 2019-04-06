@@ -50,7 +50,7 @@ static char *create_blank_maze(size_t height, size_t width)
         maze[i + i * width + width] = '\n';
     for (size_t i = 0; i < height; i += 2) {
         for (size_t j = 0; j < width; j += 2)
-            maze[i + i * width + j] = '*';
+            maze[MAP_NODE(i, j, width)] = '*';
     }
     return maze;
 }
@@ -77,7 +77,7 @@ static struct node_s *create_node_map(size_t h, size_t w)
         return NULL;
     for (size_t i = 0; i < h; i += 2) {
         for (size_t j = 0; j < w; j += 2) {
-            index = i + i * w + j;
+            index = MAP_NODE(i, j, w);
             node_map[index].x = i;
             node_map[index].y = j;
             node_map[index].dir = 0b1111;
