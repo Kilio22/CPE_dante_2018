@@ -30,9 +30,9 @@ static size_t get_link_coordinates(struct map_s *map, struct node_s *current,
 	long y = current->y;
 
 	*x = current->x;
-	if (direction == NORTH && current->x + 2 < map->width)
+	if (direction == NORTH && current->x + 2 < map->height)
 		*x = current->x + 2;
-	if (direction == EAST && current->y + 2 < map->height)
+	if (direction == EAST && current->y + 2 < map->width)
 		y = current->y + 2;
 	if (direction == SOUTH && current->x - 2 >= 0)
 		*x = current->x - 2;

@@ -43,6 +43,7 @@ INCL_PATH	=	$(ROOT_PATH)$(INCL_NAME)
 TESTS_PATH	=	$(ROOT_PATH)$(TESTS_NAME)
 
 SRC	=	build_maze.c \
+		fuckup_map.c \
 		link_node.c \
 		perfect_generation.c
 
