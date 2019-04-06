@@ -13,7 +13,7 @@
 #define MAX_CHILDS 10
 #define MAP_SIZE(h, w) (h * w + h - 1)
 #define MAP_NODE(m, x, y, w) m + x * w + y
-// n->x + (x - n->x) / 2 + (n->y + (y - n->y) / 2) * width;
+#define WALL_INDEX(nx, ny, x, y, w) (nx + (x - nx) / 2) * w + ny + (y - ny) / 2
 
 enum directions {
 	NORTH = 0b0001,

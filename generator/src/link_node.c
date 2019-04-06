@@ -48,6 +48,7 @@ struct node_s *link_node(struct map_s *map, struct node_s *current)
 	size_t x;
 	size_t y;
 
+	printf("\nENTERING %lu %lu NODE\n\n", current->x, current->y);
 	while (current->dir) {
 		dir = get_rand_direction();
 		if (~current->dir & dir)
@@ -59,8 +60,11 @@ struct node_s *link_node(struct map_s *map, struct node_s *current)
 		dest = MAP_NODE(map->node_map, x, y, map->width);
 		if (*(MAP_NODE(map->maze, x, y, map->width)) != '*' || dest->prev)
 			continue;
-		map->maze[] = '*';
+		printf("Current x y : %lu %lu\nDest x y : %lu %lu\nWidth : %lu\n", current->x, current->y, x, y, map->width);
+		printf("%lu\n", WALL_INDEX(current->x, current->y, x, y, map->width));
+		map->maze[WALL_INDEX(current->x, current->y, x, y, map->width)] = '*';
 		return dest;
 	}
 	return current->prev;
+	// nodes[n->x + (x - n->x) / 2 + (n->y + (y - n->y) / 2) * width].c = ' ';
 }

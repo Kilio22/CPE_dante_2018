@@ -97,6 +97,8 @@ char *perfect_generation(size_t height, size_t width)
     if (!map.maze || !node_map)
         return NULL;
     map.node_map = node_map;
+    write(1, map.maze, MAP_SIZE(height, width));
+    write(1, "\n", 1);
     start->prev = start;
     map.nodes[0] = link_node(&map, start);
     while (child_nb)
