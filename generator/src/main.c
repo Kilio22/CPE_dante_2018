@@ -15,26 +15,11 @@
 #include "my_string.h"
 #include "generator.h"
 
-static void randomize_map_fuckup(char *map, size_t height, size_t width)
-{
-    size_t n = (height * width) / 2;
-    size_t x;
-    size_t y;
-
-    if (!map)
-        return;
-    while (n--) {
-        x = rand() % height;
-        y = rand() % width;
-        map[x + x * width + y] = '*';
-    }
-}
-
-static int display_map(char *map, size_t height, size_t width)
+static int display_maze(char *map, long height, long width)
 {
     if (!map)
         return 84;
-    if (write(1, map, height * width + height - 1) == -1)
+    if (write(1, map, MAP_SIZE(height, width)) == -1)
         return 84;
     free(map);
     return EXIT_SUCCESS;
@@ -43,12 +28,12 @@ static int display_map(char *map, size_t height, size_t width)
 int main(int argc, char *argv[])
 {
     char *map;
-    size_t width;
-    size_t height;
+    long width;
+    long height;
 
     if (argc < 3)
         return 84;
-    if (sscanf(argv[1], "%lu", &width) + sscanf(argv[2], "%lu", &height) < 2) {
+    if (sscanf(argv[1], "%ld", &width) + sscanf(argv[2], "%ld", &height) < 2) {
         fprintf(stderr, "%s: invalid maze size values!\n", argv[0]);
         return 84;
     }
@@ -60,5 +45,5 @@ int main(int argc, char *argv[])
     map = perfect_generation(height, width);
     if (!(argc > 3 && STR_EQ(argv[3], "perfect")))
         randomize_map_fuckup(map, height, width);
-    return display_map(map, height, width);
+    return display_maze(map, height, width);
 }
