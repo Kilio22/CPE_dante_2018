@@ -41,31 +41,6 @@ static size_t get_link_coordinates(struct map_s *map, struct node_s *current,
 	return y;
 }
 
-// struct node_s *link_node(struct map_s *map, struct node_s *current)
-// {
-// 	struct node_s *dest;
-// 	size_t *coords;
-// 	char direction;
-
-// 	while (current->directions) {
-// 		direction = get_rand_direction();
-// 		if (~current->directions & direction)
-// 			continue;
-// 		current->directions -= direction;
-// 		coords = get_link_coordinates(current, direction, height, width);
-// 		if (coords[0] == current->x && coords[1] == current->y)
-// 			continue;
-// 		dest = GET_NODE(nodes, coords[0], coords[1], width);
-// 		if (dest->c != '*' || dest->prev)
-// 			continue;
-// 		dest->prev = current;
-// 		nodes[INDEX_OF_WALL(current->x, current->y, coords[0],
-// coords[1], width)].c = '*';
-// 		return dest;
-// 	}
-// 	return current->prev;
-// }
-
 struct node_s *link_node(struct map_s *map, struct node_s *current)
 {
 	struct node_s *dest;
@@ -81,8 +56,11 @@ struct node_s *link_node(struct map_s *map, struct node_s *current)
 		y = get_link_coordinates(map, current, dir, &x);
 		if (x == current->x && y == current->y)
 			continue;
-		dest 
-		nodes[n->x + (x - n->x) / 2 + (n->y + (y - n->y) / 2) * width].c = ' ';
+		dest = MAP_NODE(map->node_map, x, y, map->width);
+		if (*(MAP_NODE(map->maze, x, y, map->width)) != '*' || dest->prev)
+			continue;
+		map->maze[] = '*';
+		return dest;
 	}
 	return current->prev;
 }
