@@ -15,11 +15,11 @@
 #include "my_string.h"
 #include "generator.h"
 
-static void randomize_map_fuckup(char *map, size_t height, size_t width)
+static void randomize_map_fuckup(char *map, long height, long width)
 {
-    size_t n = (height * width) / 2;
-    size_t x;
-    size_t y;
+    long n = (height * width) / 2;
+    long x;
+    long y;
 
     if (!map)
         return;
@@ -30,12 +30,13 @@ static void randomize_map_fuckup(char *map, size_t height, size_t width)
     }
 }
 
-static int display_maze(char *map, size_t height, size_t width)
+static int display_maze(char *map, long height, long width)
 {
     if (!map)
         return 84;
     if (write(1, map, MAP_SIZE(height, width)) == -1)
         return 84;
+    write(1, "\n", 1);
     free(map);
     return EXIT_SUCCESS;
 }
@@ -43,8 +44,8 @@ static int display_maze(char *map, size_t height, size_t width)
 int main(int argc, char *argv[])
 {
     char *map;
-    size_t width;
-    size_t height;
+    long width;
+    long height;
 
     if (argc < 3)
         return 84;

@@ -13,7 +13,7 @@
 #define MAX_CHILDS 10
 #define MAP_SIZE(h, w) (h * w + h - 1)
 #define MAP_NODE(x, y, w) x + x * w + y
-#define WALL_INDEX(cur_x, cur_y, x, y, width) (cur_x + (x - cur_x) / 2) * width + cur_y + (y - cur_y) / 2
+#define WALL_INDEX(nx, ny, x, y, width) (nx + (x - nx) / 2) * width + ny + (y - ny) / 2
 
 enum directions {
 	NORTH = 0b0001,
@@ -23,15 +23,15 @@ enum directions {
 };
 
 struct node_s {
-	size_t x;
-	size_t y;
+	long x;
+	long y;
 	char dir;
 	struct node_s *prev;
 };
 
 struct map_s {
-	size_t height;
-	size_t width;
+	long height;
+	long width;
 	char *maze;
 	struct node_s *node_map;
 	struct node_s *nodes[MAX_CHILDS];
@@ -39,8 +39,8 @@ struct map_s {
 
 #define STR_EQ(s1, s2) !strcmp(s1, s2)
 
-char *perfect_generation(size_t height, size_t width);
+char *perfect_generation(long height, long width);
 struct node_s *link_node(struct map_s *map, struct node_s *current);
-size_t build_maze(struct map_s *map, struct node_s *start, size_t child_nb);
+long build_maze(struct map_s *map, struct node_s *start, long child_nb);
 
 #endif /* !GENERATOR_H_ */

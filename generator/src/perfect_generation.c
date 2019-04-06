@@ -12,50 +12,23 @@
 #include <stdbool.h>
 #include "generator.h"
 
-static int get_dig_direction(size_t i, size_t j)
-{
-    if (i && j)
-        return rand() % 2;
-    if (i)
-        return NORTH;
-    if (j)
-        return WEST;
-    return -1;
-}
-
-int dig_walls(char *map, size_t i, size_t width)
-{
-    int dir;
-
-    for (size_t j = width - ((width % 2) ? 1 : 2); j < width; j -= 2) {
-        dir = get_dig_direction(i, j);
-        if (dir == -1)
-            return 0;
-        if (dir == NORTH)
-            map[(i - 1) + (i - 1) * width + j] = '*';
-        else if (dir == WEST)
-            map[i + i * width + (j - 1)] = '*';
-    }
-    return 0;
-}
-
-static char *create_blank_maze(size_t height, size_t width)
+static char *create_blank_maze(long height, long width)
 {
     char *maze = malloc(MAP_SIZE(height, width));
 
     if (!maze)
         return NULL;
     memset(maze, 'X', MAP_SIZE(height, width));
-    for (size_t i = 0; i < height - 1; i++)
+    for (long i = 0; i < height - 1; i++)
         maze[i + i * width + width] = '\n';
-    for (size_t i = 0; i < height; i += 2) {
-        for (size_t j = 0; j < width; j += 2)
+    for (long i = 0; i < height; i += 2) {
+        for (long j = 0; j < width; j += 2)
             maze[MAP_NODE(i, j, width)] = '*';
     }
     return maze;
 }
 
-static struct map_s init_map(size_t height, size_t width)
+static struct map_s init_map(long height, long width)
 {
     struct map_s map;
     char *maze = create_blank_maze(height, width);
@@ -63,20 +36,20 @@ static struct map_s init_map(size_t height, size_t width)
     map.height = height;
     map.width = width;
     map.maze = maze;
-    for (size_t i = 0; i < MAX_CHILDS; i++)
+    for (long i = 0; i < MAX_CHILDS; i++)
         map.nodes[i] = NULL;
     return map;
 }
 
-static struct node_s *create_node_map(size_t h, size_t w)
+static struct node_s *create_node_map(long h, long w)
 {
     struct node_s *node_map = malloc(sizeof(struct node_s) * MAP_SIZE(h, w));
-    size_t index;
+    long index;
 
     if (!node_map)
         return NULL;
-    for (size_t i = 0; i < h; i += 2) {
-        for (size_t j = 0; j < w; j += 2) {
+    for (long i = 0; i < h; i += 2) {
+        for (long j = 0; j < w; j += 2) {
             index = MAP_NODE(i, j, w);
             node_map[index].x = i;
             node_map[index].y = j;
@@ -87,17 +60,18 @@ static struct node_s *create_node_map(size_t h, size_t w)
     return node_map;
 }
 
-char *perfect_generation(size_t height, size_t width)
+char *perfect_generation(long height, long width)
 {
     struct map_s map = init_map(height, width);
     struct node_s *node_map = create_node_map(height, width);
     struct node_s *start = node_map;
-    size_t child_nb = 1;
+    long child_nb = 1;
 
     if (!map.maze || !node_map)
         return NULL;
     map.node_map = node_map;
     write(1, map.maze, MAP_SIZE(height, width));
+    write(1, "\n", 1);
     write(1, "\n", 1);
     start->prev = start;
     map.nodes[0] = link_node(&map, start);
