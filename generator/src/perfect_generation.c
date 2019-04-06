@@ -74,8 +74,13 @@ char *perfect_generation(long height, long width)
     map.nodes[0] = link_node(&map, start);
     while (child_nb)
         child_nb = build_maze(&map, start, child_nb);
-    // if (map.maze[MAP_NODE(height - 1, width - 1, width)] != '*')
-        // map.maze[MAP_NODE(height - 1, width - 1, width)] = '*';
+    map.maze[MAP_SIZE(height, width) - 1] = '*';
+    if (!(height % 2 || width % 2)) {
+        if (rand() % 2)
+            map.maze[MAP_SIZE(height, width) - 2] = '*';
+        else
+            map.maze[MAP_SIZE(height, width) - 2 - width] = '*';
+    }
     free(node_map);
     return map.maze;
 }

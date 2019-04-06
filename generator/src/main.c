@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 
     if (argc < 3)
         return 84;
-    if (sscanf(argv[1], "%lu", &width) + sscanf(argv[2], "%lu", &height) < 2) {
+    if (sscanf(argv[1], "%ld", &width) + sscanf(argv[2], "%ld", &height) < 2) {
         fprintf(stderr, "%s: invalid maze size values!\n", argv[0]);
         return 84;
     }
