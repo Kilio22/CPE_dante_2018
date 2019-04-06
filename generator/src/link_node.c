@@ -56,11 +56,11 @@ struct node_s *link_node(struct map_s *map, struct node_s *current)
 		y = get_link_coordinates(map, current, dir, &x);
 		if (x == current->x && y == current->y)
 			continue;
-		dest = GET_NODE(nodes, x, y, width);
-		if (dest->c != '*' || dest->prev)
+		dest = &map->node_map[MAP_NODE(x, y, map->width)];
+		if (map->maze[MAP_NODE(x, y, map->width)] != '*' || dest->prev)
 			continue;
 		dest->prev = current;
-		map->maze[INDEX_OF_WALL(current->x, current->y, x, y, width)] = '*';
+		map->maze[WALL_INDEX(current->x, current->y, x, y, map->width)] = '*';
 		return dest;
 	}
 	return current->prev;

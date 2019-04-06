@@ -70,13 +70,12 @@ char *perfect_generation(long height, long width)
     if (!map.maze || !node_map)
         return NULL;
     map.node_map = node_map;
-    write(1, map.maze, MAP_SIZE(height, width));
-    write(1, "\n", 1);
-    write(1, "\n", 1);
     start->prev = start;
     map.nodes[0] = link_node(&map, start);
     while (child_nb)
         child_nb = build_maze(&map, start, child_nb);
+    // if (map.maze[MAP_NODE(height - 1, width - 1, width)] != '*')
+        // map.maze[MAP_NODE(height - 1, width - 1, width)] = '*';
     free(node_map);
     return map.maze;
 }
