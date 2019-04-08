@@ -31,7 +31,7 @@ static long add_child(struct map_s *map, struct node_s *origin, long child_nb)
 
 long build_maze(struct map_s *map, struct node_s *start, long child_nb)
 {
-    long child_pop_ratio = 5;
+    long child_pop_ratio = 6;
 
     for (long i = 0; i < child_nb; i++) {
         if (map->nodes[i] == start) {
