@@ -6,6 +6,7 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "generator.h"
 
 static void remove_every_first_wall_line(char *map, long width)
@@ -38,11 +39,13 @@ static void remove_every_first_wall_colmun(char *map, long height, long width)
 
 void randomize_map_fuckup(char *map, long height, long width)
 {
+    long n = (height * width) / 2;
+    long x;
+    long y;
+
     if (!map)
         return;
-    if (height >= width) {
-        remove_every_first_wall_line(map, width);
-    } else {
-        remove_every_first_wall_colmun(map, height, width);
+    while (n--) {
+        x = rand() % 2
     }
 }
