@@ -9,16 +9,18 @@
 #include <stdio.h>
 #include "generator.h"
 
-int get_rand_direction(char dir)
+int get_rand_direction(void)
 {
-    if (dir & NORTH)
-        return NORTH;
-    if (dir & WEST)
-        return WEST;
-    if (dir & SOUTH)
-        return SOUTH;
-    if (dir & EAST)
-        return EAST;
+    switch (rand() % 4) {
+        case 0:
+            return NORTH;
+        case 1:
+            return EAST;
+        case 2:
+            return SOUTH;
+        case 3:
+            return WEST;
+    }
     return NORTH;
 }
 
@@ -47,7 +49,9 @@ struct node_s *link_node(struct map_s *map, struct node_s *current)
     long y;
 
     while (current->dir) {
-        dir = get_rand_direction(current->dir);
+        dir = get_rand_direction();
+		if (~current->dir & dir)
+			continue;
         current->dir -= dir;
         y = get_link_coordinates(map, current, dir, &x);
         if (x == current->x && y == current->y)
