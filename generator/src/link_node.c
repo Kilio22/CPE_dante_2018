@@ -50,8 +50,8 @@ struct node_s *link_node(struct map_s *map, struct node_s *current)
 
     while (current->dir) {
         dir = get_rand_direction();
-		if (~current->dir & dir)
-			continue;
+        if (~current->dir & dir)
+            continue;
         current->dir -= dir;
         y = get_link_coordinates(map, current, dir, &x);
         if (x == current->x && y == current->y)
