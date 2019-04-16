@@ -1,6 +1,7 @@
 # Dante's Star
 
-- **Binary names:** generator && solver
+- **Binary names:** generator <x> <y> [perfect], solver <maze.txt>
+- **Mark** : 90%
 
 # Subject
 
