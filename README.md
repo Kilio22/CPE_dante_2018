@@ -26,29 +26,29 @@ The goal of this project is to **generate mazes** (in a reasonable amount of tim
 
 ### Imperfect maze
 
-An imperfect maze must contain clusters.
-The requirements are the same as for perfect mazes.
-The generation method is up to you, but it must work in an acceptable amount of time.
+An imperfect maze must contain clusters.  
+The requirements are the same as for perfect mazes.  
+The generation method is up to you, but it must work in an acceptable amount of time.  
 
-**Input**: maze size
-**Output**: a maze with the required size on the standard output.
+**Input**: maze size  
+**Output**: a maze with the required size on the standard output.  
 
-> :warning: The maze must have at least one solution.
+> :warning: The maze must have at least one solution.  
 
 ### Perfect maze
 
-A perfect maze is a maze that has no loops and no clusters; therefore, following a wall makes us cross the entire maze.
-The generation method is up to you, but it must work in an acceptable amount of time.
+A perfect maze is a maze that has no loops and no clusters; therefore, following a wall makes us cross the entire maze.  
+The generation method is up to you, but it must work in an acceptable amount of time.  
 
-**Input**: maze size (width/height).
-**Output**: a maze with the required size on the standard output.
+**Input**: maze size (width/height).  
+**Output**: a maze with the required size on the standard output.  
 
-> :warning: The maze must have a solution.
-> :bulb: The maze should be really perfect.
-> :bulb: The maze should be really really perfect.
+> :warning: The maze must have a solution.  
+> :bulb: The maze should be really perfect.  
+> :bulb: The maze should be really really perfect.  
 
 ### Solving mazes
 
-Now it’s time to solve those mazes you’ve generated . . . and some more that our very very efficient AI generated for you.
-Your resolution program should take the name of a file containing the maze and write the solution on the standard output.
-You can choose the algorithm you want but be careful, you will be ask to solve perfect and imperfect mazes.
+Now it’s time to solve those mazes you’ve generated . . . and some more that our very very efficient AI generated for you.  
+Your resolution program should take the name of a file containing the maze and write the solution on the standard output.  
+You can choose the algorithm you want but be careful, you will be ask to solve perfect and imperfect mazes.  
