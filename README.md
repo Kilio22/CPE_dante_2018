@@ -1,6 +1,9 @@
 # Dante's Star
 
 - **Binary names:** generator \<x> \<y> [perfect], solver <maze.txt>
+- **Group members:**
+  - [@Kilio22](https://github.com/Kilio22)
+  - [@HeyShafty](https://github.com/HeyShafty)
 - **Mark** : 90%
 
 # Subject
